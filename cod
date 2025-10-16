@@ -1,0 +1,42 @@
+# demo_open_close.py
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
+# --- CHAVES (genéricas) ---
+USER_KEY = "user_key_placeholder_ABC123"
+SECRET_KEY = "secret_key_placeholder_XYZ789"
+SECURITY_KEY = "security_key_placeholder_000111"
+
+# Nunca coloque chaves reais no código em produção / num repositório público.
+# Só para demonstração.
+
+def main():
+    print("Iniciando demo com chaves:")
+    print(f" USER_KEY = {USER_KEY}")
+    # mostrar apenas parte das outras chaves por segurança visual
+    print(f" SECRET_KEY (masked) = {SECRET_KEY[:4]}***")
+    print(f" SECURITY_KEY (masked) = {SECURITY_KEY[:4]}***")
+
+    # configurar Chrome (modo headful; retire options.add_argument se quiser modo normal)
+    chrome_options = Options()
+    # chrome_options.add_argument("--headless")  # descomente se quiser que não abra janela
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+
+    try:
+        url = "https://example.com"
+        print(f"Abrindo {url} ...")
+        driver.get(url)
+
+        # espera demonstrativa (tempo para a audiência ver a página)
+        time.sleep(3)  # altere o tempo conforme preferir
+
+        print("Fechando o navegador...")
+    finally:
+        driver.quit()
+        print("Navegador fechado. Demo finalizada.")
+
+if __name__ == "__main__":
+    main()
